@@ -1,0 +1,55 @@
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from comunidade_outpost.models import Usuario
+from flask_login import current_user
+
+
+class FormCriarConta(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    senha = PasswordField('Password', validators=[DataRequired(), Length(6, 20)])
+    confirmacao_senha = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('senha')])
+    botao_submit_criarconta = SubmitField('Sign in')
+
+    def validate_email(self, email):
+        usuario = Usuario.query.filter_by(email=email.data).first()
+        if usuario:
+            raise ValidationError("There is already an account with this email. Log in to proceed.")
+
+
+class FormLogin(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    senha = PasswordField('Password', validators=[DataRequired(), Length(6, 20)])
+    lembrar_dados = BooleanField('Remember me')
+    botao_submit_login = SubmitField('Log in')
+
+
+class FormEditarPerfil(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('E-mail', validators=[DataRequired(), Email()])
+    foto_perfil = FileField('New profile picture', validators=[FileAllowed(['jpg', 'png', 'svg', 'gif'])])
+    hobbie_1 = BooleanField('Games')
+    hobbie_2 = BooleanField('Movies')
+    hobbie_3 = BooleanField('Sports')
+    hobbie_4 = BooleanField('Sing')
+    botao_submit_editarperfil = SubmitField('Submit')
+
+    def validate_email(self, email):
+        if current_user.email != email.data:
+            usuario = Usuario.query.filter_by(email=email.data).first()
+            if usuario:
+                raise ValidationError("There is already an user with this email.")
+
+
+class FormCriarPost(FlaskForm):
+    titulo = StringField('Post`s title', validators=[DataRequired(), Length(5, 40)])
+    corpo = TextAreaField('Write your post here', validators=[DataRequired()])
+    botao_submit = SubmitField('Create post')
+
+
+class FormEditarPost(FlaskForm):
+    titulo = StringField('Post`s title', validators=[DataRequired(), Length(5, 40)])
+    corpo = TextAreaField('Write your post here', validators=[DataRequired()])
+    botao_submit = SubmitField('Edit post')
