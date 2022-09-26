@@ -7,29 +7,29 @@
           <a class="nav-link" aria-current="page" href="{{ url_for('home') }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('usuarios') }}">Users</a>
+          <a class="nav-link" href="{{ url_for('usuarios') }}">Usuários</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('contato') }}">Contact me</a>
+          <a class="nav-link" href="{{ url_for('contato') }}">Eu e minhas regras</a>
         </li>
       </ul>
       <ul class="d-flex navbar-nav">
         {% if current_user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('criar_post') }}">Create Post</a>
+          <a class="nav-link" href="{{ url_for('criar_post') }}">Criar post</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('perfil') }}">My Profile</a>
+          <a class="nav-link" href="{{ url_for('perfil') }}">Meu Perfil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('sair') }}">Exit</a>
+          <a class="nav-link" href="{{ url_for('sair') }}">Sair</a>
         </li>
         {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('login') }}">Sign in</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('login') }}">Register</a>
+          <a class="nav-link" href="{{ url_for('login') }}">Se registrar</a>
         </li>
         {% endif %}
       </ul>
