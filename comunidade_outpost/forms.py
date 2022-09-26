@@ -30,10 +30,14 @@ class FormEditarPerfil(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('E-mail', validators=[DataRequired(), Email()])
     foto_perfil = FileField('New profile picture', validators=[FileAllowed(['jpg', 'png', 'svg', 'gif'])])
-    hobbie_1 = BooleanField('Games')
-    hobbie_2 = BooleanField('Movies')
-    hobbie_3 = BooleanField('Sports')
-    hobbie_4 = BooleanField('Sing')
+    hobbie_1 = BooleanField('Videogames')
+    hobbie_2 = BooleanField('Filmes')
+    hobbie_3 = BooleanField('Esportes')
+    hobbie_4 = BooleanField('Cantar')
+    hobbie_5 = BooleanField('Animes')
+    hobbie_6 = BooleanField('Calistenia')
+    hobbie_7 = BooleanField('Crossfit')
+    hobbie_8 = BooleanField('Dança')
     botao_submit_editarperfil = SubmitField('Submit')
 
     def validate_email(self, email):
@@ -44,8 +48,8 @@ class FormEditarPerfil(FlaskForm):
 
 
 class FormCriarPost(FlaskForm):
-    titulo = StringField('Post`s title', validators=[DataRequired(), Length(5, 40)])
-    corpo = TextAreaField('Write your post here', validators=[DataRequired()])
+    titulo = StringField('Título do post', validators=[DataRequired(), Length(5, 40)])
+    corpo = TextAreaField('Escreva seu post aqui', validators=[DataRequired()])
     botao_submit = SubmitField('Create post')
 
 
